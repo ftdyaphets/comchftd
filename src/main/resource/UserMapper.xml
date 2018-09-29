@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ch.ftd.mapper.UserMapper">
+    <resultMap id="userMap" type="com.ch.ftd.vo.UserVO">
+        <id property="id" column="id" javaType="String"></id>
+        <result property="name" column="name" javaType="String" ></result>
+        <result property="password" column="password" javaType="String"></result>
+    </resultMap>
+
+    <insert id="addUser">
+        insert into t_user (id,name,password) values(#{id},#{name},#{password});
+    </insert>
+
+    <delete id="delUser" parameterType="String">
+        delete from t_user where name=#{name};
+    </delete>
+
+    <select id="getAllUsers" resultMap="userMap">
+        select *from t_user;
+    </select>
+</mapper>
