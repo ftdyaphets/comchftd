@@ -40,17 +40,36 @@ public class IndexController {
 
     @RequestMapping(value="/ch/addUser",method= RequestMethod.GET)
     @ResponseBody
-    public String addUser(){
+    public String addUser(String name,String password){
         SqlSession sqlSession = null;
         try{
             sqlSession = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config.xml")).openSession();
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
             UserVO user = new UserVO();
-            user.setName("sheldon");
-            user.setPassword("123456");
+            user.setName(name);
+            user.setPassword(password);
             mapper.addUser(user);
             sqlSession.commit();
             return "add success!";
+        }catch (Exception e){
+            if(sqlSession!=null){
+                sqlSession.rollback();
+            }
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    @RequestMapping(value="/ch/delUser",method= RequestMethod.GET)
+    @ResponseBody
+    public String delUser(String name){
+        SqlSession sqlSession = null;
+        try{
+            sqlSession = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config.xml")).openSession();
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            mapper.delUser(name);
+            sqlSession.commit();
+            return "delete user success!";
         }catch (Exception e){
             if(sqlSession!=null){
                 sqlSession.rollback();

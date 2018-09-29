@@ -1,3 +1,4 @@
+<%@include file="view/bootstrapModal.jsp"%>
 <html>
 <head>
     <link href="//static.yovole.com/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -16,6 +17,7 @@
 <span id="btnGet" class="btn btn-primary">getData</span>
 <span id="btnClear" class="btn btn-danger">clear</span>
 <p id="content"></p>
-<!--<span id="btnAdd" class="btn btn-success">addUser</span>-->
+<span id="btnAdd" class="btn btn-success">addUser</span>
+<span id="btnDel" class="btn btn-danger">delUser</span>
 </body>
 </html>

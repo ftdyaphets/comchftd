@@ -5,4 +5,8 @@
     height:200px;
     border:2px solid #ccc;
     border-radius:5px;
+    overflow: auto;
+}
+.modal-content{
+    width:400px;
 }
