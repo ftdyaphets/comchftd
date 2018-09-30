@@ -9,5 +9,9 @@ public interface UserMapper {
 
     int delUser(String name) throws Exception;
 
+    UserVO getUser(String name) throws Exception;
+
     List<UserVO> getAllUsers() throws Exception;
+
+    int updateUser(UserVO user) throws Exception;
 }

@@ -11,6 +11,21 @@ import java.util.List;
 @Service
 public class UserManager implements IUsermanager{
     @Override
+    public UserVO getUserByName(String name) {
+        SqlSession sqlSession= SqlSessionTools.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        try{
+            UserVO user = userMapper.getUser(name);
+            sqlSession.commit();
+            return user;
+        }catch(Exception e){
+            e.printStackTrace();
+            sqlSession.rollback();
+            return null;
+        }
+    }
+
+    @Override
     public List<UserVO> getAllUsers() {
         SqlSession sqlSession= SqlSessionTools.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
@@ -25,12 +40,15 @@ public class UserManager implements IUsermanager{
         }
     }
     @Override
-    public boolean addUser(String name,String password){
+    public boolean addUser(String name,String password,String sex,int age,int score){
         SqlSession sqlSession= SqlSessionTools.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         UserVO user = new UserVO();
         user.setName(name);
         user.setPassword(password);
+        user.setSex(sex);
+        user.setAge(age);
+        user.setScore(score);
         try{
             userMapper.addUser(user);
             sqlSession.commit();
@@ -48,6 +66,26 @@ public class UserManager implements IUsermanager{
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         try{
             userMapper.delUser(name);
+            sqlSession.commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            sqlSession.rollback();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUser(String name,String sex,int age,int score){
+        SqlSession sqlSession= SqlSessionTools.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        UserVO user = new UserVO();
+        user.setName(name);
+        user.setSex(sex);
+        user.setAge(age);
+        user.setScore(score);
+        try{
+            userMapper.updateUser(user);
             sqlSession.commit();
             return true;
         }catch (Exception e){

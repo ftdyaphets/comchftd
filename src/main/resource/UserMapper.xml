@@ -5,10 +5,13 @@
         <id property="id" column="id" javaType="String"></id>
         <result property="name" column="name" javaType="String" ></result>
         <result property="password" column="password" javaType="String"></result>
+        <result property="sex" column="sex" javaType="String"></result>
+        <result property="age" column="age" javaType="int"></result>
+        <result property="score" column="score" javaType="int"></result>
     </resultMap>
 
     <insert id="addUser">
-        insert into t_user (id,name,password) values(#{id},#{name},#{password});
+        insert into t_user (id,name,password,sex,age,score) values(#{id},#{name},#{password},#{sex},#{age},#{score});
     </insert>
 
     <delete id="delUser" parameterType="String">
@@ -18,4 +21,13 @@
     <select id="getAllUsers" resultMap="userMap">
         select *from t_user;
     </select>
+
+    <select id="getUser" resultMap="userMap" parameterType="String">
+        select *from t_user where name=#{name};
+    </select>
+
+    <update id="updateUser">
+        update t_user set id=#{id},sex=#{sex},age=#{age},score=#{score} where name=#{name};
+    </update>
+
 </mapper>
