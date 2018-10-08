@@ -1,4 +1,5 @@
 <%@include file="view/bootstrapModal.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <link href="//static.yovole.com/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -37,7 +38,7 @@
 <h2>User Management</h2>
 <span id="btnGet" class="btn btn-primary">getData</span>
 <span id="btnClear" class="btn btn-danger">clear</span>
-<p id="content"></p>
+<p id="content">中文测试</p>
 <span id="btnAdd" class="btn btn-success">addUser</span>
 <span id="btnDel" class="btn btn-danger">delUser</span>
 <span id="btnUpdate" class="btn btn-primary">updateUser</span>
