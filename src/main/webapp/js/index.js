@@ -21,17 +21,19 @@ $(document).ready(function(){
 
     $('#btnAdd').bind('click',function(){
         $('#myModal').modal('show');
-        $('#userInfoInput input').val('');
-        var sex;
-        $('#sexInput input:radio').click(function(){
-            sex=$(this).val();
-            alert("select"+sex);
+        $('#userInfoInput input').not('input:radio').val('');
+        $('#SexInput input:radio').eq(0).prop('checked',true);
+        $('#SexInput input:radio').eq(1).prop('checked',false);
+        var sex = $('#sexInput input:radio').val();
+        $('#sexInput input:radio').on('change',function(){
+            sex=this.value;
+            console.log(sex);
+            //console.log("select1:"+sex.value);
+            //console.log($('#'+sex.id).text());
         });
         $('#save').unbind().bind('click',function(){
             var name = $('#name').val();
             var password = $('#password').val();
-            //var sex = $('#sexInput input:radio:checked').val();
-            alert(sex);
             var age = $('#age').val();
             var score = $('#score').val();
             $('#myModal').modal('hide');
@@ -81,7 +83,7 @@ $(document).ready(function(){
 
     $('#btnUpdate').bind('click',function(){
         $('#updateUserModal').modal('show');
-        $('#userUpdateInfoInput input').val('');
+        $('#userUpdateInfoInput input').not('input:radio').val('');
         $('#updateName').blur(function(){
             var name = $('#updateName').val();
             $.ajax({
@@ -93,18 +95,24 @@ $(document).ready(function(){
                 success:function(data){
                     var userInfo = JSON.parse(data);
                     if(userInfo.sex=='female'){
-                        $('#updateSexInput input:radio').eq(0).attr('checked',false);
-                        $('#updateSexInput input:radio').eq(1).attr('checked',true);
+                        $('#updateSexInput input:radio').eq(0).prop('checked',false);
+                        $('#updateSexInput input:radio').eq(1).prop('checked',true);
                     }else{
-                        $('#updateSexInput input:radio').eq(0).attr('checked',true);
-                        $('#updateSexInput input:radio').eq(1).attr('checked',false);
+                        $('#updateSexInput input:radio').eq(0).prop('checked',true);
+                        $('#updateSexInput input:radio').eq(1).prop('checked',false);
                     }
                     $('#updateAge').val(userInfo.age);
                     $('#updateScore').val(userInfo.score);
 
+                    var updateSex = $('#updateSexInput input:radio:checked').val();
+                    $('#updateSexInput input:radio').on('change',function(){
+                        updateSex=this.value;
+                        console.log(updateSex);
+                        //console.log("select1:"+sex.value);
+                        //console.log($('#'+sex.id).text());
+                    });
                     $('#updateSave').unbind().bind('click',function(){
                         var updateName = $('#updateName').val();
-                        var updateSex = $('#updateSexInput input:radio:checked').val();
                         var updateAge = $('#updateAge').val();
                         var updateScore = $('#updateScore').val();
                         $('#updateUserModal').modal('hide');
